@@ -12,8 +12,8 @@ This is my solution to the [Notifications page challenge on Frontend Mentor](htt
 
 ### Links
 
-- Solution URL: [Click to view Solution](https://www.frontendmentor.io/solutions/age-calculator-using-js-2K5ZwtZL7c)
-- Live Site URL: [Click to view Live Site](https://coded-by-mj.github.io/Front-end-Mentor-Challenge4/)
+- Solution URL: [Click to view Solution](https://www.frontendmentor.io/solutions/responsive-and-interactive-notification-page-using-html-css-and-js-PkIHBIWej)
+- Live Site URL: [Click to view Live Site](https://coded-by-mj.github.io/Front-end-Mentor-Challenge5/)
 
 
 
