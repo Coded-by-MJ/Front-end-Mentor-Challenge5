@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var unreadCount = document.querySelectorAll('.read-icon:not(.read)').length;
     updateCounter();
 
+    var counterDisabled = false; // Flag to indicate if counter should be disabled
+
     readBtn.addEventListener('click', function() {
+        // Disable the counter when "Mark all as read" is clicked
+        counterDisabled = true;
+        counterSpan.textContent = '0';
+        
         readIcon.forEach(function(read) {
             read.style.display = 'none';
         });
@@ -21,20 +27,19 @@ document.addEventListener('DOMContentLoaded', function() {
         chess.forEach(function(chess) {
             chess.classList.add('read');
         });
-
-        // Disable the counter when "Mark all as read" is clicked
-        unreadCount = 0;
-        counterSpan.textContent = unreadCount;
     });
 
     // Add click event listener to each text
     var textAll = document.querySelectorAll('.text');
     textAll.forEach(function(text) {
-        text.addEventListener('click', function() {
-            // Find the closest parent row element
-            var parentRow = text.closest('.row');
+        text.addEventListener('click', textClickHandler);
+    });
 
-            // If the parent row is found, hide read-icon within it
+    // Function to handle click events on individual text messages
+    function textClickHandler() {
+        if (!counterDisabled) { // Check if the counter is disabled
+            var parentRow = this.closest('.row');
+
             if (parentRow) {
                 var iconInRow = parentRow.querySelector('.read-icon');
                 if (iconInRow) {
@@ -42,28 +47,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            let chessBlue = text.querySelector('.chess-blue');
+            let chessBlue = this.querySelector('.chess-blue');
             if (chessBlue) {
                 chessBlue.classList.add('read');
             }
 
-            // Check if any child element has the message class
-            var messageChild = text.querySelector('.message');
+            var messageChild = this.querySelector('.message');
             if (messageChild) {
-                // Display the message
                 messageChild.style.display = 'block';
             }
 
-            // Update the counter only if the text was initially unread
-            var hasUnreadIcon = text.querySelector('.read-icon:not(.read)');
+            var hasUnreadIcon = this.querySelector('.read-icon:not(.read)');
             if (hasUnreadIcon) {
                 unreadCount -= 1;
                 updateCounter();
-                // Mark the text as read to avoid multiple clicks affecting the count
-                text.querySelector('.read-icon').classList.add('read');
+                this.querySelector('.read-icon').classList.add('read');
             }
-        });
-    });
+        }
+    }
 
     // Function to update the counter span text
     function updateCounter() {
